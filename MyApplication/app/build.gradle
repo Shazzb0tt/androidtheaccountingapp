@@ -17,6 +17,10 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
+
+        debug {
+            resValue "string", "TOOL_BAR_VERSION", "${defaultConfig.versionName}"
+        }
     }
 }
 
@@ -31,6 +35,11 @@ dependencies {
     compile "com.android.support:appcompat-v7:${play_services_version}"
     compile "com.android.support:design:${play_services_version}"
     compile "com.android.support:support-vector-drawable:${play_services_version}"
+    compile "com.android.support:cardview-v7:${play_services_version}"
+
+//  Support library
+    def support_library_version = "21.0.+"
+    compile "com.android.support:recyclerview-v7:${support_library_version}"
 
 //  Architecture Components
     def arch_component_version = '1.0.0-alpha5'
