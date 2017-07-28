@@ -1,0 +1,57 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion 25
+    buildToolsVersion "26.0.0"
+    defaultConfig {
+        applicationId "larmour.daniel.theaccountingapp"
+        minSdkVersion 19
+        targetSdkVersion 25
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        vectorDrawables.useSupportLibrary = true
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+dependencies {
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    })
+
+//  Play Store Services
+    def play_services_version = "25.3.1"
+    compile "com.android.support:appcompat-v7:${play_services_version}"
+    compile "com.android.support:design:${play_services_version}"
+    compile "com.android.support:support-vector-drawable:${play_services_version}"
+
+//  Architecture Components
+    def arch_component_version = '1.0.0-alpha5'
+
+    compile "android.arch.lifecycle:runtime:${arch_component_version}"
+    compile "android.arch.lifecycle:extensions:${arch_component_version}"
+    annotationProcessor "android.arch.lifecycle:compiler:${arch_component_version}"
+    compile "android.arch.persistence.room:runtime:${arch_component_version}"
+    annotationProcessor "android.arch.persistence.room:compiler:${arch_component_version}"
+    compile "android.arch.persistence.room:rxjava2:${arch_component_version}"
+
+//    RxJava
+    def rx_version = '2.0.5'
+    compile "io.reactivex.rxjava2:rxjava:${rx_version}"
+
+//    Dagger2
+    def dagger_version = '2.8'
+    compile "com.google.dagger:dagger:${dagger_version}"
+    annotationProcessor "com.google.dagger:dagger-compiler:${dagger_version}"
+    provided 'javax.annotation:jsr250-api:1.0'
+    compile 'javax.inject:javax.inject:1'
+
+    testCompile 'junit:junit:4.12'
+}
