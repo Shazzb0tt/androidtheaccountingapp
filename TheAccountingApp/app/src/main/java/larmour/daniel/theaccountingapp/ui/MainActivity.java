@@ -76,10 +76,7 @@ public class MainActivity extends LifecycleActivity implements AppCompatCallback
     @Override
     public boolean onMenuItemSelected(int featureId, MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.menu_profile:
-                Intent intent = new Intent(MainActivity.this, ProfileActivity.class);
-                startActivity(intent);
-                break;
+
         }
         return true;
     }
