@@ -65,6 +65,11 @@ public class MainActivity extends LifecycleActivity implements AppCompatCallback
         }
     }
 
+    private void goToProfileActivity() {
+        Intent intent = new Intent(MainActivity.this, ProfileActivity.class);
+        startActivity(intent);
+    }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         if(mDelegate.getSupportActionBar() != null) {
@@ -76,6 +81,9 @@ public class MainActivity extends LifecycleActivity implements AppCompatCallback
     @Override
     public boolean onMenuItemSelected(int featureId, MenuItem item) {
         switch (item.getItemId()) {
+            case R.id.menu_profile:
+                goToProfileActivity();
+                break;
 
         }
         return true;
