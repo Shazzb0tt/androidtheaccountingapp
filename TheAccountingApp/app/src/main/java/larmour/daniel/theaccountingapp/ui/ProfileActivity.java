@@ -13,6 +13,7 @@ import android.view.MenuItem;
 import android.widget.TextView;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.annotations.NonNull;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
@@ -32,7 +33,7 @@ public class ProfileActivity extends LifecycleActivity implements AppCompatCallb
     private final CompositeDisposable mDisposable = new CompositeDisposable();
     private       AppCompatDelegate   mDelegate;
 
-    private       TextView            mProfileName;
+    private       TextView            mProfileName, mIrdNumber;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,6 +65,21 @@ public class ProfileActivity extends LifecycleActivity implements AppCompatCallb
                         Log.e(TAG, "Unable to update username", throwable);
                     }
                 }));
+
+        mDisposable.add(mViewModel.getIrdNumber()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Consumer<String>() {
+                    @Override
+                    public void accept(@NonNull String s) throws Exception {
+                        mIrdNumber.setText(s);
+                    }
+                }, new Consumer<Throwable>() {
+                    @Override
+                    public void accept(@NonNull Throwable throwable) throws Exception {
+                        Log.e(TAG, "Unable to update ird number", throwable);
+                    }
+                }));
     }
 
     @Override
@@ -88,6 +104,7 @@ public class ProfileActivity extends LifecycleActivity implements AppCompatCallb
 
     private void initializeViews() {
         mProfileName = (TextView) findViewById(R.id.tv_profile_name);
+        mIrdNumber   = (TextView) findViewById(R.id.tv_ird_number);
     }
 
     @Override

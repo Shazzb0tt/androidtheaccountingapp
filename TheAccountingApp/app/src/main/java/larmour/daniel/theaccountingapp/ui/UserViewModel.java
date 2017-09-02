@@ -29,7 +29,8 @@ public class UserViewModel extends ViewModel {
                             .map(new Function<User, String>() {
                                 @Override
                                 public String apply(@NonNull User user) throws Exception {
-                                    return user.getUserName();
+                                    mUser = user;
+                                    return mUser.getUserName();
                                 }
                             });
     }
@@ -40,10 +41,21 @@ public class UserViewModel extends ViewModel {
             public void run() throws Exception {
                 mUser = mUser == null
                         ? new User(userName)
-                        : new User(mUser.getId(), userName);
+                        : new User(mUser.getId(), userName, mUser.getIrdNumber());
 
                 mDataSource.insertOrUpdateUser(mUser);
             }
         });
+    }
+
+    public Flowable<String> getIrdNumber() {
+        return mDataSource.getUser()
+                            .map(new Function<User, String>() {
+                                @Override
+                                public String apply(@NonNull User user) throws Exception {
+                                    mUser = user;
+                                    return mUser.getIrdNumber();
+                                }
+                            });
     }
 }
